@@ -9,6 +9,8 @@ import Fish from './Fish';
 class App extends React.Component {
 	constructor() {
 		super();
+
+		this.addFish = this.addFish.bind(this);
 		// 	getinitialState
 		this.state = {
 			fishes: {},
@@ -18,8 +20,13 @@ class App extends React.Component {
 
 	addFish(fish) {
 		// 	update our state
+		const fishes = {...this.state.fishes};
+		// 	add in our new fish
+		const timestamp = Date.now();
+		fishes[`fish-${timestamp}`] = fish; 	// "fish" coming from AddFishForm.js
 
 		//  set state
+		this.setState({ fishes: fishes })
 	}
 
 	render() {
@@ -29,7 +36,7 @@ class App extends React.Component {
 					<Header tagline="Fresh Seafood Market"/>
 				</div>
 				<Order />
-				<Inventory />
+				<Inventory addFish={this.addFish} />
 			</div>
 		)
 	}
@@ -60,7 +67,8 @@ export default App;
 // 		};
 // 	}
 
-
+// 	Pass function down to "Inventory"
+// 	<Inventory addFish={this.addFish} />
 
 
 
